@@ -1,4 +1,5 @@
 using System.Collections;
+using Spine.Unity;
 using UnityEngine;
 
 namespace NamPhuThuy.SpineAdapter
@@ -35,6 +36,48 @@ namespace NamPhuThuy.SpineAdapter
             skeletonGraphic.Update(0);
             skeletonGraphic.LateUpdate();
         }
+        
+        #region PLAY ANIMATION
+
+        /// <summary>
+        /// Plays an animation for UI Spine (SkeletonGraphic)
+        /// </summary>
+        public static void PlayAnimation(SkeletonGraphic skeletonGraphic, string animationName, bool loop = true, float timeScale = 1f)
+        {
+            if (skeletonGraphic == null || skeletonGraphic.AnimationState == null)
+                return;
+
+            // Optional: Check if animation exists to prevent errors
+            if (skeletonGraphic.Skeleton.Data.FindAnimation(animationName) == null)
+            {
+                Debug.LogWarning($"[SpineHelper] Animation '{animationName}' not found on {skeletonGraphic.name}");
+                return;
+            }
+
+            skeletonGraphic.timeScale = timeScale;
+            skeletonGraphic.AnimationState.SetAnimation(0, animationName, loop);
+        }
+
+        /// <summary>
+        /// Plays an animation for World Spine (SkeletonAnimation)
+        /// </summary>
+        public static void PlayAnimation(SkeletonAnimation skeletonAnimation, string animationName, bool loop = true, float timeScale = 1f)
+        {
+            if (skeletonAnimation == null || skeletonAnimation.AnimationState == null)
+                return;
+
+            // Optional: Check if animation exists to prevent errors
+            if (skeletonAnimation.Skeleton.Data.FindAnimation(animationName) == null)
+            {
+                Debug.LogWarning($"[SpineHelper] Animation '{animationName}' not found on {skeletonAnimation.name}");
+                return;
+            }
+
+            skeletonAnimation.timeScale = timeScale;
+            skeletonAnimation.AnimationState.SetAnimation(0, animationName, loop);
+        }
+
+        #endregion
     }
 
 }
