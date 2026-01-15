@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using Spine.Unity;
 using UnityEngine;
 
@@ -34,7 +36,7 @@ namespace NamPhuThuy.SpineAdapter
         // Add more as needed
     }
     
-    public class SpineManager : Singleton<SpineManager>
+    public partial class SpineManager : Singleton<SpineManager>
     {
         #region Pool Configuration
         
@@ -102,6 +104,7 @@ namespace NamPhuThuy.SpineAdapter
         protected override void Awake()
         {
             base.Awake();
+            MMEventManager.RegistCurrentEvents(this);
             
             // Initialize containers
             _animationPools = new Dictionary<SpineAnimationType, Queue<SkeletonAnimation>>();
@@ -131,7 +134,13 @@ namespace NamPhuThuy.SpineAdapter
                 WarmupAllPools();
             }
         }
-        
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            MMEventManager.UnregistCurrentEvents(this);
+        }
+
         #endregion
         
         #region Public Methods - Spawn & Recycle
@@ -552,6 +561,7 @@ namespace NamPhuThuy.SpineAdapter
         }
         
         #endregion
+
     }
 
     #if UNITY_EDITOR
@@ -582,10 +592,7 @@ namespace NamPhuThuy.SpineAdapter
             {
                 script.WarmupAllPools();
             }
-            if (GUILayout.Button("Recycle All"))
-            {
-                script.RecycleAll();
-            }
+           
             EditorGUILayout.EndHorizontal();
             
             if (GUILayout.Button("Log Pool Statistics"))
