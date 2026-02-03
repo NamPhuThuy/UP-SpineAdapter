@@ -113,7 +113,7 @@ public class SpineUsageExamples : MonoBehaviour
     {
         // Spawn UI graphic
         SkeletonGraphic likeEffect = SpineManager.Ins.Spawn(
-            SpineGraphicType.LikeEffect,
+            SpineGraphicType.LIKE_EFFECT,
             transform  // UI parent
         );
         
@@ -326,7 +326,7 @@ public class LikeButton : MonoBehaviour
     {
         // Spawn UI graphic effect
         SkeletonGraphic likeEffect = SpineManager.Ins.Spawn(
-            SpineGraphicType.LikeEffect,
+            SpineGraphicType.LIKE_EFFECT,
             effectContainer
         );
         
@@ -354,7 +354,7 @@ public class ComboSystem : MonoBehaviour
         
         // Spawn combo text
         SkeletonGraphic comboText = SpineManager.Ins.Spawn(
-            SpineGraphicType.ComboText,
+            SpineGraphicType.COMBO_TEXT,
             transform
         );
         

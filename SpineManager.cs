@@ -29,8 +29,9 @@ namespace NamPhuThuy.SpineAdapter
     /// </summary>
     public enum SpineGraphicType
     {
-        LikeEffect,
-        ComboText,
+        NONE = 0,
+        LIKE_EFFECT = 1,
+        COMBO_TEXT = 2,
         ScorePopup,
         ButtonPress,
         // Add more as needed
