@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Spine.Unity;
 using Spine;
@@ -460,7 +461,7 @@ namespace NamPhuThuy.SpineAdapter
         /// <summary>
         /// Fade out (from visible to transparent) - SkeletonAnimation
         /// </summary>
-        public static IEnumerator FadeOut(SkeletonAnimation skeletonAnimation, float duration)
+        public static IEnumerator FadeOut(SkeletonAnimation skeletonAnimation, float duration, Action onComplete = null)
         {
             if (skeletonAnimation == null || skeletonAnimation.Skeleton == null)
                 yield break;
@@ -480,6 +481,7 @@ namespace NamPhuThuy.SpineAdapter
 
             color.a = 0f;
             skeletonAnimation.Skeleton.SetColor(color);
+            onComplete?.Invoke();
         }
 
         /// <summary>
