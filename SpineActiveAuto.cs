@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+
+#if USE_SPINE
 using Spine.Unity;
-using PrimeTween;
+#endif
 
 namespace NamPhuThuy.SpineAdapter
 {
@@ -24,23 +26,27 @@ namespace NamPhuThuy.SpineAdapter
             APPEAR_THEN_IDLE = 4,
         }
 
-        [Header("Settings")]
-        [SerializeField] private ActiveMethod activeMethod = ActiveMethod.ON_ENABLE;
+        [Header("Settings")] [SerializeField] private ActiveMethod activeMethod = ActiveMethod.ON_ENABLE;
         [SerializeField] private ActiveMode activeMode = ActiveMode.PLAY_ANIMATION;
         [SerializeField] private float delay = 0f;
 
+#if USE_SPINE
         [Header("Targets")]
         [SerializeField] private SkeletonGraphic skeletonGraphic;
         [SerializeField] private SkeletonAnimation skeletonAnimation;
 
-        [Header("Animation Config")]
-        [SerializeField] private string animationName = "animation";
+#endif
+
+
+        [Header("Animation Config")] [SerializeField]
+        private string animationName = "animation";
+
         [SerializeField] private string idleAnimationName = "idle";
         [SerializeField] private bool loop = true;
         [SerializeField] private float timeScale = 1f;
 
-        [Header("Fade Config")]
-        [SerializeField] private float fadeDuration = 0.5f;
+        [Header("Fade Config")] [SerializeField]
+        private float fadeDuration = 0.5f;
 
         private void Awake()
         {
@@ -61,6 +67,7 @@ namespace NamPhuThuy.SpineAdapter
         {
             if (activeMode == ActiveMode.NONE) return;
 
+#if USE_SPINE
             if (skeletonGraphic != null)
             {
                 ProcessActive(skeletonGraphic);
@@ -69,12 +76,14 @@ namespace NamPhuThuy.SpineAdapter
             {
                 ProcessActive(skeletonAnimation);
             }
+#endif
         }
 
         private void ProcessActive(object spineObj)
         {
+#if USE_SPINE
             bool isUI = spineObj is SkeletonGraphic;
-            
+
             switch (activeMode)
             {
                 case ActiveMode.PLAY_ANIMATION:
@@ -90,10 +99,12 @@ namespace NamPhuThuy.SpineAdapter
                     else SpineHelper.Fade((SkeletonAnimation)spineObj, 0f, fadeDuration, delay);
                     break;
                 case ActiveMode.APPEAR_THEN_IDLE:
-                    if (isUI) SpineHelper.PlayAppearThenLoop((SkeletonGraphic)spineObj, animationName, idleAnimationName);
+                    if (isUI)
+                        SpineHelper.PlayAppearThenLoop((SkeletonGraphic)spineObj, animationName, idleAnimationName);
                     else SpineHelper.PlayAppearThenLoop((SkeletonAnimation)spineObj, animationName, idleAnimationName);
                     break;
             }
+#endif
         }
     }
 }
