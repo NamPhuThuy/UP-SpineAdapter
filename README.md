@@ -26,3 +26,9 @@ Note: If the error is caused by Blend Modes (Additive), you cannot optimize it a
 
 ![alt text]({C181D7B5-56CD-4111-9912-E4DB523550C8}.png)
 ![alt text]({12A806B2-2510-4784-A300-8C544F3C8C54}.png)
+
+
+# Note
+
+Scripting Symbols:
+- "USE_SPINE"

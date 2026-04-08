@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
-using Spine.Unity;
-using Spine;
+
 using UnityEngine;
 using PrimeTween;
 
+#if USE_SPINE
+using Spine.Unity;
+using Spine;
+#endif
+
 namespace NamPhuThuy.SpineAdapter
 {
+#if USE_SPINE
     public static class SpineHelper
     {
         public static void ChangeSkin(Spine.Unity.SkeletonGraphic skeletonGraphic, string skinName)
@@ -200,7 +205,7 @@ namespace NamPhuThuy.SpineAdapter
         /// <summary>
         /// Play animation with callback when complete (SkeletonGraphic)
         /// </summary>
-        public static TrackEntry PlayAnimationWithCallback(SkeletonGraphic skeletonGraphic, string animationName, bool loop, System.Action onComplete, float timeScale = 1f)
+        public static TrackEntry PlayAnimationWithCallback(SkeletonGraphic skeletonGraphic, string animationName, bool loop, Action onComplete, float timeScale = 1f)
         {
             if (skeletonGraphic == null || skeletonGraphic.AnimationState == null)
                 return null;
@@ -225,7 +230,7 @@ namespace NamPhuThuy.SpineAdapter
         /// <summary>
         /// Play animation with callback when complete (SkeletonAnimation)
         /// </summary>
-        public static TrackEntry PlayAnimationWithCallback(SkeletonAnimation skeletonAnimation, string animationName, bool loop, System.Action onComplete, float timeScale = 1f)
+        public static TrackEntry PlayAnimationWithCallback(SkeletonAnimation skeletonAnimation, string animationName, bool loop, Action onComplete, float timeScale = 1f)
         {
             if (skeletonAnimation == null || skeletonAnimation.AnimationState == null)
                 return null;
@@ -638,4 +643,5 @@ namespace NamPhuThuy.SpineAdapter
 
         #endregion
     }
+#endif
 }
